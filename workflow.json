@@ -1,0 +1,1728 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const row = $input.first().json;\n\nreturn [{\n  json: {\n    student_email: row[\"Student Email Address\"],\n    student_name: row[\"Student's Full Name\"],\n    sleep_hours: Number(row[\"How many hours of sleep did you get last night?\"]),\n    stress_level: Number(row[\"On a scale of 1 to 10, what is your current stress level?\"]),\n    energy_level: Number(row[\"Energy Level\"]),\n    water: Number(row[\"Water Intake per day\"]),\n    symptoms_string: row[\"What symptoms are you experiencing today? (Select all that apply)\"] || \"\",\n    submission_date: row[\"Timestamp\"]\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -48
+      ],
+      "id": "95b3b07a-408e-40b5-a1e9-1e3a2c229ce4",
+      "name": "Extract Form Data"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "810d843e-3ab0-4cd5-be28-dd519b5df368",
+              "leftValue": "={{ Object.keys($json).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        -48
+      ],
+      "id": "850819be-6f77-4919-bd6c-7aa8a660b9af",
+      "name": "If",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1240924301,
+          "mode": "list",
+          "cachedResultName": "Student_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=1240924301"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "student_email": "={{ $('Extract Form Data').first().json.student_email }}",
+            "student_name": "={{ $('Extract Form Data').first().json.student_name }}",
+            "first_submission": "={{ $('Extract Form Data').first().json.submission_date }}",
+            "last_submission": "={{ $('Extract Form Data').first().json.submission_date }}",
+            "latest_sleep": "={{ $('Extract Form Data').first().json.sleep_hours }}",
+            "submission_count": "1",
+            "latest_stress": "={{ $('Extract Form Data').first().json.stress_level }}",
+            "latest_energy": "={{ $('Extract Form Data').first().json.energy_level }}",
+            "streak": "1",
+            "latest_symptoms": "={{ $('Extract Form Data').first().json.symptoms_string }}",
+            "water_intake": "={{ $('Extract Form Data').item.json.water }}",
+            "total_points": "0"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "student_email",
+              "displayName": "student_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "student_name",
+              "displayName": "student_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "first_submission",
+              "displayName": "first_submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_submission",
+              "displayName": "last_submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "submission_count",
+              "displayName": "submission_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_sleep",
+              "displayName": "latest_sleep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_stress",
+              "displayName": "latest_stress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_energy",
+              "displayName": "latest_energy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_symptoms",
+              "displayName": "latest_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "total_points",
+              "displayName": "total_points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "streak",
+              "displayName": "streak",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "water_intake",
+              "displayName": "water_intake",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        96
+      ],
+      "id": "1b729dc0-4a91-4adf-8204-d6e6ec08f3f1",
+      "name": "Append New Student",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vhXMoilPoocwLJVX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=RETURNING STUDENT DATA (Submission #{{ $json.submission_count }})\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSTUDENT DETAILS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nName: {{ $('Points calculation').item.json.student_name }}\nEmail: {{ $json.student_email }}\nSubmission Date: {{ $('Points calculation').item.json.submission_date }}\nStreak: {{ $json.streak }}\nTotal Points: {{ $json.total_points }}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nCURRENT LOG (Today)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSymptoms: {{ $('Points calculation').item.json.latest_symptoms }}\nSleep: {{ $('Points calculation').item.json.latest_sleep }} hours\nStress: {{ $('Points calculation').item.json.latest_stress }}/10\nEnergy: {{ $('Points calculation').item.json.latest_energy }}/10\nWater Intake:{{ $('Points calculation').item.json.water }} glasses\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nPREVIOUS LOG (Last Submission)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSymptoms: {{ $('Points calculation').item.json.symptoms_string }}\nSleep: {{ $('Points calculation').item.json.previous_sleep }} hours\nStress: {{ $('Points calculation').item.json.previous_stress }}/10\nEnergy: {{ $('Points calculation').item.json.previous_energy }}/10\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nTRENDS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSleep Trend: {{ $('Points calculation').item.json.sleep_trend }}\nStress Trend: {{ $('Points calculation').item.json.stress_trend }}\nEnergy Trend:{{ $('Points calculation').item.json.energy_trend }}\nSymptom Trend: {{ $('Points calculation').item.json.symptom_trend }}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSTRICT INSTRUCTIONS (FOLLOW EXACTLY)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n1. Compare current vs previous symptoms.\n2. Identify:\n   - new_symptoms\n   - resolved_symptoms\n   - persistent_symptoms\n\n3. Determine improvement_status:\n   - IMPROVING\n   - WORSENING\n   - STABLE\n\n4. Write a short progress_message (1 line only).\n\n5. Predict ONE condition:\n   - condition_1\n   - probability_1 (number only)\n   - confidence_1 (number only)\n\n6. Provide:\n   - remedy_1\n\n7. Provide actions:\n   - immediate_action_1\n   - immediate_action_2\n   - immediate_action_3\n\n8. Provide wellness tips:\n   - hydration_reminder\n   - break_reminder\n   - sleep_tip\n   - stress_relief_tip\n   - wellness_tip\n\n9. Provide follow_up_needed:\n   ONLY one of:\n   - YES - Consult doctor\n   - MONITOR\n   - NO\n\n10. Provide disclaimer (short).\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nCRITICAL OUTPUT RULES (VERY IMPORTANT)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n- Return ONLY a valid JSON object\n- DO NOT wrap in quotes\n- DO NOT add text before or after\n- DO NOT use markdown (no ```json)\n- DO NOT escape JSON\n- All keys must match exactly\n- Numbers must be numbers (not strings)\n- Empty fields should be \"\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nOUTPUT FORMAT\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n{\n  \"improvement_status\": \"\",\n  \"progress_message\": \"\",\n  \"previous_symptoms\": \"\",\n  \"new_symptoms\": \"\",\n  \"resolved_symptoms\": \"\",\n  \"persistent_symptoms\": \"\",\n\n  \"condition_1\": \"\",\n  \"probability_1\": 0,\n  \"confidence_1\": 0,\n  \"remedy_1\": \"\",\n\n  \"immediate_action_1\": \"\",\n  \"immediate_action_2\": \"\",\n  \"immediate_action_3\": \"\",\n\n  \"hydration_reminder\": \"\",\n  \"break_reminder\": \"\",\n  \"sleep_tip\": \"\",\n  \"stress_relief_tip\": \"\",\n  \"wellness_tip\": \"\",\n\n  \"follow_up_needed\": \"\",\n  \"disclaimer\": \"\"\n}\nDON'T INCLUSE ANT EXTRA COMMAS",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Student Data (USE THESE EXACT VALUES):\n\nStudent Name: {{ $('Points calculation').item.json.student_name }}\nStudent Email: {{ $json.student_email }}\nSubmission Count: {{ $json.submission_count }}\nSubmission Date: {{ $json.last_submission }}\n\nCurrent Symptoms: {{ $json.latest_symptoms }}\nSleep Hours: {{ $json.latest_sleep }}\nStress Level: {{ $json.latest_stress }}\nEnergy Level: {{ $json.latest_energy }}\nPOINTS : {{ $json.total_points }}\n\nPrevious Symptoms: {{ $('Points calculation').item.json.latest_symptoms }}\nPrevious Sleep: {{ $('Points calculation').item.json.previous_sleep }}\nPrevious Stress: {{ $('Points calculation').item.json.previous_stress }}\nPrevious Energy: {{ $('Points calculation').item.json.previous_energy }}\n\nSleep Trend: {{ $('Points calculation').item.json.sleep_trend }}\nStress Trend: {{ $('Points calculation').item.json.stress_trend }}\nEnergy Trend: {{ $('Points calculation').item.json.energy_trend }}\n\nCalculate probabilities, confidence scores, and recommendations based on the rules.\nDO NOT include points or points_awarded in your output.\nReturn ONLY the JSON object."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1488,
+        -112
+      ],
+      "id": "13a9ad6e-2937-41a9-90cf-3d23305a32f4",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        -288
+      ],
+      "id": "a7eaa4fa-1f08-4e68-8f47-5ad799bd9da5",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "Mj1uPGVTnsRfn9Tr",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1240924301,
+          "mode": "list",
+          "cachedResultName": "Student_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=1240924301"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "student_email",
+              "lookupValue": "={{ $json.student_email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        -48
+      ],
+      "id": "e473d33a-5e94-487d-9d1e-a0071fc3e7ae",
+      "name": "Searches for student",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vhXMoilPoocwLJVX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.student_email }}",
+        "subject": "=Wellness Report - {{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }}(Log #{{ $json.submission_number }})",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Student Wellness Report</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.5;\n            color: #1a1a2e;\n            max-width: 650px;\n            margin: 0 auto;\n            padding: 20px;\n            background-color: #f0f2f5;\n        }\n        .email-container {\n            background: white;\n            border-radius: 16px;\n            overflow: hidden;\n            box-shadow: 0 4px 20px rgba(0,0,0,0.08);\n        }\n        .header {\n            background: linear-gradient(135deg, #1a3c5e 0%, #2c5a7a 100%);\n            color: white;\n            padding: 28px 24px;\n            text-align: center;\n        }\n        .header h1 {\n            margin: 0;\n            font-size: 24px;\n            font-weight: 600;\n        }\n        .header p {\n            margin: 8px 0 0;\n            font-size: 14px;\n            opacity: 0.85;\n        }\n        .content {\n            padding: 28px 30px;\n        }\n        .card {\n            background: #ffffff;\n            border-radius: 12px;\n            margin-bottom: 20px;\n            border: 1px solid #e8ecf0;\n            overflow: hidden;\n        }\n        .card-header {\n            background: #f8f9fc;\n            padding: 14px 20px;\n            border-bottom: 1px solid #e8ecf0;\n            font-weight: 600;\n            font-size: 16px;\n            color: #1a3c5e;\n        }\n        .card-body {\n            padding: 18px 20px;\n        }\n        \n        .info-item {\n            flex: 1;\n            min-width: 150px;\n        }\n        .info-label {\n            font-size: 11px;\n            text-transform: uppercase;\n            letter-spacing: 0.5px;\n            color: #6c757d;\n            margin-bottom: 4px;\n        }\n        .info-value {\n            font-size: 16px;\n            font-weight: 500;\n            color: #2c3e50;\n        }\n        .progress-box {\n            padding: 16px;\n            border-radius: 10px;\n            margin: 12px 0;\n            text-align: center;\n        }\n        .progress-improving {\n            background: #e8f5e9;\n            border-left: 4px solid #2e7d32;\n            color: #2e7d32;\n        }\n        .progress-worsening {\n            background: #ffebee;\n            border-left: 4px solid #c62828;\n            color: #c62828;\n        }\n        .progress-stable {\n            background: #fff8e1;\n            border-left: 4px solid #f57c00;\n            color: #e65100;\n        }\n        .symptom-table {\n            width: 100%;\n            margin: 12px 0;\n        }\n        .symptom-table td {\n            padding: 8px 0;\n            border-bottom: 1px solid #f0f0f0;\n        }\n        .symptom-table td:first-child {\n            font-weight: 600;\n            width: 140px;\n            color: #1a3c5e;\n        }\n        .condition-badge {\n            background: #e3f2fd;\n            padding: 12px 16px;\n            border-radius: 10px;\n            margin: 12px 0;\n        }\n        .condition-name {\n            font-size: 18px;\n            font-weight: 700;\n            color: #1565c0;\n            margin-bottom: 8px;\n        }\n        .probability-bar {\n            background: #e0e0e0;\n            border-radius: 10px;\n            height: 8px;\n            margin: 10px 0;\n            overflow: hidden;\n        }\n        .probability-fill {\n            background: #2e7d32;\n            height: 100%;\n            border-radius: 10px;\n        }\n        .remedy-box {\n            background: #f5f5f5;\n            padding: 14px;\n            border-radius: 10px;\n            margin: 12px 0;\n            border-left: 3px solid #2e7d32;\n        }\n        .action-list {\n            padding-left: 20px;\n            margin: 10px 0;\n        }\n        .action-list li {\n            margin: 8px 0;\n        }\n        .points-card {\n            background: linear-gradient(135deg, #ff8c00, #ff6d00);\n            color: white;\n            padding: 20px;\n            border-radius: 12px;\n            text-align: center;\n            margin: 20px 0;\n        }\n        .points-number {\n            font-size: 42px;\n            font-weight: 700;\n            margin: 8px 0;\n        }\n        .badge {\n            display: inline-block;\n            padding: 4px 14px;\n            border-radius: 30px;\n            font-size: 12px;\n            font-weight: 600;\n        }\n        .badge-yes {\n            background: #c62828;\n            color: white;\n        }\n        .badge-monitor {\n            background: #f57c00;\n            color: white;\n        }\n        .badge-no {\n            background: #2e7d32;\n            color: white;\n        }\n        .disclaimer {\n            background: #fef3e8;\n            padding: 16px;\n            border-radius: 10px;\n            font-size: 11px;\n            color: #a15e2e;\n            margin-top: 20px;\n            border-left: 3px solid #ff8c00;\n        }\n        .footer {\n            background: #f8f9fc;\n            padding: 16px 24px;\n            text-align: center;\n            font-size: 11px;\n            color: #6c757d;\n            border-top: 1px solid #e8ecf0;\n        }\n        .mt-2 {\n            margin-top: 8px;\n        }\n        .mt-3 {\n            margin-top: 12px;\n        }\n    </style>\n</head>\n<body>\n<div class=\"email-container\">\n    <div class=\"header\">\n        <h1>Student Wellness Report</h1>\n        <p>Personalized Health Assessment and Recommendations</p>\n    </div>\n    \n    <div class=\"content\">\n        \n        <!-- Student Information -->\n        <div class=\"card\">\n            <div class=\"card-header\">Student Information</div>\n            <div class=\"card-body\">\n                <div class=\"info-grid\">\n                    <!-- <div class=\"info-item\">\n                        <div class=\"info-label\">Student Name</div>\n                        <div class=\"info-value\"> {{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }} </div>\n                    </div>\n                    <br><br/> -->\n                    <!-- <div class=\"info-item\">\n                        <div class=\"info-label\">Email Address</div>\n                        <div class=\"info-value\">{{ $json.student_email }}</div>\n                    </div>\n                      <br><br/>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Report Date</div>\n                        <div class=\"info-value\">{{ $json.timestamp }}</div>\n                    </div>\n                    <br><br/>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Log Number</div>\n                        <div class=\"info-value\">{{ $json.submission_number }}</div>\n                    </div> -->\n                    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Student Name</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Email Address</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json['Student Email Address'] }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Report Date</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json.Timestamp }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td>\n                            <div class=\"info-label\">Log Number</div>\n                            <div class=\"info-value\">{{ $json.submission_number }}</div>\n                        </td>\n                        </tr>\n                        </table>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Current Health Status -->\n        <div class=\"card\">\n            <div class=\"card-header\">Current Health Status</div>\n            <div class=\"card-body\">\n                <div class=\"info-grid\">\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Sleep</div>\n                        <div class=\"info-value\">{{ $json.sleep }} hours</div>\n                    </div>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Stress Level</div>\n                        <div class=\"info-value\">{{ $json.stress }}/10</div>\n                    </div>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Energy Level</div>\n                        <div class=\"info-value\">{{ $json.energy }}/10</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Reported Symptoms -->\n        <div class=\"card\">\n            <div class=\"card-header\">Reported Symptoms</div>\n            <div class=\"card-body\">\n                <p style=\"margin: 0;\">{{ $json.symptoms }}</p>\n            </div>\n        </div>\n        \n        <!-- Progress vs Previous Log (FIXED) -->\n        <div class=\"card\">\n            <div class=\"card-header\">Progress vs Previous Log</div>\n            <div class=\"card-body\">\n                \n                <div class=\"progress-box \n                {{ $json.improvement_status === 'IMPROVING' ? 'progress-improving' : \n                   $json.improvement_status === 'WORSENING' ? 'progress-worsening' : \n                   'progress-stable' }}\">\n                \n                    <strong>{{ $json.improvement_status }}</strong><br>\n                    {{ $json.progress_message }}\n                \n                </div>\n                \n                <table class=\"symptom-table\">\n                    <tr>\n                        <td>Previous Symptoms</td>\n                        <td>{{ $json.previous_symptoms }}</td>\n                    </tr>\n                    <tr>\n                        <td>New Symptoms</td>\n                        <td>{{ $json.new_symptoms }}</td>\n                    </tr>\n                    <tr>\n                        <td>Resolved Symptoms</td>\n                        <td>{{ $json.resolved_symptoms }}</td>\n                    </tr>\n                    <tr>\n                        <td>Persistent Symptoms</td>\n                        <td>{{ $json.persistent_symptoms }}</td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n        <div class=\"card\">\n            <div class=\"card-header\">Health Assessment</div>\n            <div class=\"card-body\">\n                <div class=\"condition-badge\">\n                    <div class=\"condition-name\">{{ $json.condition_1 }}</div>\n                    <div>Probability: <strong>{{ $json.probability_1 }}%</strong></div>\n                    <div class=\"probability-bar\">\n                        <div class=\"probability-fill\" style=\"width: {{ $json.probability_1 }}%;\"></div>\n                    </div>\n                    <div class=\"mt-2\">Confidence Level: <strong>{{ $json.confidence_1 }}%</strong></div>\n                </div>\n                \n                <div class=\"remedy-box\">\n                    <strong>Recommended Remedy</strong><br>\n                    {{ $json.remedy_1 }}\n                </div>\n            </div>\n        </div>\n        \n        <!-- Action Plan -->\n        <div class=\"card\">\n            <div class=\"card-header\">Action Plan</div>\n            <div class=\"card-body\">\n                <ol class=\"action-list\">\n                    <li><strong>Do Now:</strong> {{ $json.immediate_action_1 }}</li>\n                    <li><strong>Next 2-3 Hours:</strong> {{ $json.immediate_action_2 }}</li>\n                    <li><strong>By Tomorrow:</strong> {{ $json.immediate_action_3 }}</li>\n                </ol>\n            </div>\n        </div>\n        \n        <!-- Wellness Recommendations -->\n        <div class=\"card\">\n            <div class=\"card-header\">Wellness Recommendations</div>\n            <div class=\"card-body\">\n                <div class=\"remedy-box\">\n                    <strong>Hydration:</strong> {{ $json.hydration_reminder }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Breaks:</strong> {{ $json.break_reminder }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Sleep Tip:</strong> {{ $json.sleep_tip }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Stress Relief:</strong> {{ $json.stress_relief_tip }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>General Wellness:</strong> {{ $json.wellness_tip }}\n                </div>\n            </div>\n        </div>\n        \n        <!-- Points & Rewards -->\n        <div class=\"points-card\">\n            <div>POINTS EARNED THIS LOG</div>\n            <div class=\"points-number\">{{ $json.points_awarded }}</div>\n            <div>Total Points: {{ $json.points }} | Consecutive Weeks: {{ $json.submission_number }}</div>\n        </div>\n        \n        <!-- Medical Follow-up -->\n        <div class=\"card\">\n            <div class=\"card-header\">Medical Follow-up</div>\n            <div class=\"card-body\">\n                <div>\n                    Doctor Consultation Needed: \n                    <span class=\"badge \n                        {% if $json.follow_up_needed == 'YES - Consult doctor' %}badge-yes\n                        {% elseif $json.follow_up_needed == 'MONITOR' %}badge-monitor\n                        {% else %}badge-no{% endif %}\">\n                        {{ $json.follow_up_needed }}\n                    </span>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Disclaimer -->\n        <div class=\"disclaimer\">\n            <strong>IMPORTANT MEDICAL DISCLAIMER</strong><br>\n            {{ $json.disclaimer }}<br><br>\n            <strong>Confidence Score Guide:</strong><br>\n            - 80% and above (High): Your symptoms strongly match this condition<br>\n            - 60% to 79% (Medium): Your symptoms moderately match this condition<br>\n            - Below 60% (Low): Other factors may be contributing<br><br>\n            This report is for wellness awareness only. It does not replace professional medical advice, diagnosis, or treatment.\n        </div>\n    </div>\n    \n    <div class=\"footer\">\n        <p>Continue logging your wellness to accumulate points and track your health journey.</p>\n        <p>Student Wellness Assistant Program</p>\n    </div>\n</div>\n</body>\n</html>\n        \n        ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2496,
+        -80
+      ],
+      "id": "3948e7bc-a144-46cd-bce8-969801cacb12",
+      "name": "Send a message",
+      "webhookId": "61fd4038-5d3f-41f7-9011-9597de9f805c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WWCO7JFdpmWXTScF",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=RETURNING STUDENT DATA (Submission #{{ $json.submission_count }})\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSTUDENT DETAILS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nName: {{ $json.student_name }}\nEmail: {{ $json.student_email }}\nSubmission Date: {{ $json.last_submission }}\nStreak: {{ $json.streak }}\nTotal Points: {{ $json.total_points }}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nCURRENT LOG (Today)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSymptoms: {{ $json.latest_symptoms }}\nSleep:{{ $json.latest_sleep }} hours\nStress: {{ $json.latest_stress }}/10\nEnergy: {{ $json.latest_energy }}/10\nWater Intake:{{ $json.water_intake }}glasses\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSTRICT INSTRUCTIONS (FOLLOW EXACTLY)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n1. analize symptoms,sleep,stress,energy\n2. Identify:\n   - remedies\n   - major_symptoms\n\n4. Write a short progress_message (1 line only).\n\n5. Predict ONE condition:\n   - condition_1\n   - probability_1 (number only)\n   - confidence_1 (number only)\n\n6. Provide:\n   - remedy_1\n\n7. Provide actions for the symptoms provided:\n   - immediate_action_1\n   - immediate_action_2\n   - immediate_action_3\n\n8. Provide wellness tips:\n   - hydration_reminder\n   - break_reminder\n   - sleep_tip\n   - stress_relief_tip\n   - wellness_tip\n\n9. Provide follow_up_needed:\n   ONLY one of:\n   - YES - Consult doctor\n   - MONITOR\n   - NO\n\n10. Provide disclaimer (short).\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nCRITICAL OUTPUT RULES (VERY IMPORTANT)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n- Return ONLY a valid JSON object\n- DO NOT wrap in quotes\n- DO NOT add text before or after\n- DO NOT use markdown (no ```json)\n- DO NOT escape JSON\n- All keys must match exactly\n- Numbers must be numbers (not strings)\n- Empty fields should be \"\"\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nOUTPUT FORMAT\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n{\n  \"symptoms\": \"\",\n  \"condition_1\": \"\",\n  \"probability_1\": \"\",\n  \"confidence_1\": \"\",\n  \"remedy_1\": \"\",\n\n  \"immediate_action_1\": \"\",\n  \"immediate_action_2\": \"\",\n  \"immediate_action_3\": \"\",\n\n  \"hydration_reminder\": \"\",\n  \"break_reminder\": \"\",\n  \"sleep_tip\": \"\",\n  \"stress_relief_tip\": \"\",\n  \"wellness_tip\": \"\",\n\n  \"follow_up_needed\": \"\",\n  \"disclaimer\": \"\"\n}\nDON'T INCLUSE ANT EXTRA COMMAS",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Student Data (USE THESE EXACT VALUES):\n\nStudent Name: {{ $json.student_name }}\nStudent Email: {{ $json.student_email }}\nSubmission Count: {{ $json.submission_count }}\nSubmission Date: {{ $json.last_submission }}\n\nCurrent Symptoms: {{ $json.latest_symptoms }}\nSleep Hours: {{ $json.latest_sleep }}\nStress Level: {{ $json.latest_stress }}\nEnergy Level: {{ $json.latest_energy }}\nPOINTS : {{ $json.total_points }}\n\nCalculate probabilities, confidence scores, and recommendations based on the rules.\nDO NOT include points or points_awarded in your output.\nReturn ONLY the JSON object."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1488,
+        96
+      ],
+      "id": "9d5051b8-8f33-468d-b831-229066d22299",
+      "name": "Basic LLM Chain1"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        368
+      ],
+      "id": "ea52632b-79ff-43dc-9a53-194604f3951f",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "Mj1uPGVTnsRfn9Tr",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  let raw = item.json.text || item.json.output || item.json.data || \"\";\n\n  // Step 1: Clean string (remove unwanted characters if needed)\n  raw = raw.trim();\n\n  // Step 2: Parse JSON safely\n  let parsed;\n  try {\n    parsed = JSON.parse(raw);\n  } catch (err) {\n    // fallback: try to fix broken JSON\n    parsed = JSON.parse(\n      raw\n        .replace(/\\n/g, \"\")\n        .replace(/\\r/g, \"\")\n        .replace(/\\t/g, \"\")\n    );\n  }\n\n  // Step 3: Normalize probability (0–1 → %)\n  if (parsed.probability_1 <= 1) {\n    parsed.probability_1 = Math.round(parsed.probability_1 * 100);\n  }\n\n  if (parsed.confidence_1 <= 1) {\n    parsed.confidence_1 = Math.round(parsed.confidence_1 * 100);\n  }\n\n  // Step 4: Ensure missing fields don’t break template\n  parsed.symptoms = parsed.symptoms || \"\";\n  parsed.remedy_1 = parsed.remedy_1 || \"\";\n  parsed.follow_up_needed = parsed.follow_up_needed || \"MONITOR\";\n\n  return {\n    json: parsed\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        144
+      ],
+      "id": "2cc2d17f-108a-45ef-bb9c-903aed4aa01a",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Google Sheets Trigger').item.json['Student Email Address'] }}",
+        "subject": "=Wellness Report - {{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }}",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Student Wellness Report</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.5;\n            color: #1a1a2e;\n            max-width: 650px;\n            margin: 0 auto;\n            padding: 20px;\n            background-color: #f0f2f5;\n        }\n        .email-container {\n            background: white;\n            border-radius: 16px;\n            overflow: hidden;\n            box-shadow: 0 4px 20px rgba(0,0,0,0.08);\n        }\n        .header {\n            background: linear-gradient(135deg, #1a3c5e 0%, #2c5a7a 100%);\n            color: white;\n            padding: 28px 24px;\n            text-align: center;\n        }\n        .header h1 {\n            margin: 0;\n            font-size: 24px;\n            font-weight: 600;\n        }\n        .header p {\n            margin: 8px 0 0;\n            font-size: 14px;\n            opacity: 0.85;\n        }\n        .content {\n            padding: 28px 30px;\n        }\n        .card {\n            background: #ffffff;\n            border-radius: 12px;\n            margin-bottom: 20px;\n            border: 1px solid #e8ecf0;\n            overflow: hidden;\n        }\n        .card-header {\n            background: #f8f9fc;\n            padding: 14px 20px;\n            border-bottom: 1px solid #e8ecf0;\n            font-weight: 600;\n            font-size: 16px;\n            color: #1a3c5e;\n        }\n        .card-body {\n            padding: 18px 20px;\n        }\n        \n        .info-item {\n            flex: 1;\n            min-width: 150px;\n        }\n        .info-label {\n            font-size: 11px;\n            text-transform: uppercase;\n            letter-spacing: 0.5px;\n            color: #6c757d;\n            margin-bottom: 4px;\n        }\n        .info-value {\n            font-size: 16px;\n            font-weight: 500;\n            color: #2c3e50;\n        }\n        .progress-box {\n            padding: 16px;\n            border-radius: 10px;\n            margin: 12px 0;\n            text-align: center;\n        }\n        .progress-improving {\n            background: #e8f5e9;\n            border-left: 4px solid #2e7d32;\n            color: #2e7d32;\n        }\n        .progress-worsening {\n            background: #ffebee;\n            border-left: 4px solid #c62828;\n            color: #c62828;\n        }\n        .progress-stable {\n            background: #fff8e1;\n            border-left: 4px solid #f57c00;\n            color: #e65100;\n        }\n        .symptom-table {\n            width: 100%;\n            margin: 12px 0;\n        }\n        .symptom-table td {\n            padding: 8px 0;\n            border-bottom: 1px solid #f0f0f0;\n        }\n        .symptom-table td:first-child {\n            font-weight: 600;\n            width: 140px;\n            color: #1a3c5e;\n        }\n        .condition-badge {\n            background: #e3f2fd;\n            padding: 12px 16px;\n            border-radius: 10px;\n            margin: 12px 0;\n        }\n        .condition-name {\n            font-size: 18px;\n            font-weight: 700;\n            color: #1565c0;\n            margin-bottom: 8px;\n        }\n        .probability-bar {\n            background: #e0e0e0;\n            border-radius: 10px;\n            height: 8px;\n            margin: 10px 0;\n            overflow: hidden;\n        }\n        .probability-fill {\n            background: #2e7d32;\n            height: 100%;\n            border-radius: 10px;\n        }\n        .remedy-box {\n            background: #f5f5f5;\n            padding: 14px;\n            border-radius: 10px;\n            margin: 12px 0;\n            border-left: 3px solid #2e7d32;\n        }\n        .action-list {\n            padding-left: 20px;\n            margin: 10px 0;\n        }\n        .action-list li {\n            margin: 8px 0;\n        }\n        .points-card {\n            background: linear-gradient(135deg, #ff8c00, #ff6d00);\n            color: white;\n            padding: 20px;\n            border-radius: 12px;\n            text-align: center;\n            margin: 20px 0;\n        }\n        .points-number {\n            font-size: 42px;\n            font-weight: 700;\n            margin: 8px 0;\n        }\n        .badge {\n            display: inline-block;\n            padding: 4px 14px;\n            border-radius: 30px;\n            font-size: 12px;\n            font-weight: 600;\n        }\n        .badge-yes {\n            background: #c62828;\n            color: white;\n        }\n        .badge-monitor {\n            background: #f57c00;\n            color: white;\n        }\n        .badge-no {\n            background: #2e7d32;\n            color: white;\n        }\n        .disclaimer {\n            background: #fef3e8;\n            padding: 16px;\n            border-radius: 10px;\n            font-size: 11px;\n            color: #a15e2e;\n            margin-top: 20px;\n            border-left: 3px solid #ff8c00;\n        }\n        .footer {\n            background: #f8f9fc;\n            padding: 16px 24px;\n            text-align: center;\n            font-size: 11px;\n            color: #6c757d;\n            border-top: 1px solid #e8ecf0;\n        }\n        .mt-2 {\n            margin-top: 8px;\n        }\n        .mt-3 {\n            margin-top: 12px;\n        }\n    </style>\n</head>\n<body>\n<div class=\"email-container\">\n    <div class=\"header\">\n        <h1>Student Wellness Report</h1>\n        <p>Personalized Health Assessment and Recommendations</p>\n    </div>\n    \n    <div class=\"content\">\n        \n        <!-- Student Information -->\n        <div class=\"card\">\n            <div class=\"card-header\">Student Information</div>\n            <div class=\"card-body\">\n                <div class=\"info-grid\">\n                    <!-- <div class=\"info-item\">\n                        <div class=\"info-label\">Student Name</div>\n                        <div class=\"info-value\"> {{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }} </div>\n                    </div>\n                    <br><br/> -->\n                    <!-- <div class=\"info-item\">\n                        <div class=\"info-label\">Email Address</div>\n                        <div class=\"info-value\">{{ $json.student_email }}</div>\n                    </div>\n                      <br><br/>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Report Date</div>\n                        <div class=\"info-value\">{{ $json.timestamp }}</div>\n                    </div>\n                    <br><br/>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Log Number</div>\n                        <div class=\"info-value\">{{ $json.submission_number }}</div>\n                    </div> -->\n                    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Student Name</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json[\"Student's Full Name\"] }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Email Address</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json['Student Email Address'] }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td style=\"padding-bottom:12px;\">\n                            <div class=\"info-label\">Report Date</div>\n                            <div class=\"info-value\">{{ $('Google Sheets Trigger').item.json.Timestamp }}</div>\n                        </td>\n                        </tr>\n\n                        <tr>\n                        <td>\n                            <div class=\"info-label\">Log Number</div>\n                            <div class=\"info-value\">{{ $json.submission_number }}</div>\n                        </td>\n                        </tr>\n                        </table>\n                </div>\n            </div>\n        </div>\n        \n        \n        <!-- Current Health Status -->\n        <div class=\"card\">\n            <div class=\"card-header\">Current Health Status</div>\n            <div class=\"card-body\">\n                <div class=\"info-grid\">\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Sleep</div>\n                        <div class=\"info-value\">{{ $('Append New Student').item.json.latest_sleep }} hours</div>\n                    </div>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Stress Level</div>\n                        <div class=\"info-value\">{{ $('Append New Student').item.json.latest_stress }}/10</div>\n                    </div>\n                    <div class=\"info-item\">\n                        <div class=\"info-label\">Energy Level</div>\n                        <div class=\"info-value\">{{ $('Append New Student').item.json.latest_energy }}/10</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Reported Symptoms -->\n        <div class=\"card\">\n            <div class=\"card-header\">Reported Symptoms</div>\n            <div class=\"card-body\">\n                <p style=\"margin: 0;\">{{ $('Append New Student').item.json.latest_symptoms }}</p>\n            </div>\n        </div>\n        \n       \n        <div class=\"card\">\n            <div class=\"card-header\">Health Assessment</div>\n            <div class=\"card-body\">\n                <div class=\"condition-badge\">\n                    <div class=\"condition-name\">{{ $json.condition_1 }}</div>\n                    <div>Probability: <strong>{{ $json.probability_1 }}%</strong></div>\n                    <div class=\"probability-bar\">\n                        <div class=\"probability-fill\" style=\"width: {{ $json.probability_1 }}%;\"></div>\n                    </div>\n                    <div class=\"mt-2\">Confidence Level: <strong>{{ $json.confidence_1 }}%</strong></div>\n                </div>\n                \n                <div class=\"remedy-box\">\n                    <strong>Recommended Remedy</strong><br>\n                    {{ $json.remedy_1 }}\n                </div>\n            </div>\n        </div>\n        \n        <!-- Action Plan -->\n        <div class=\"card\">\n            <div class=\"card-header\">Action Plan</div>\n            <div class=\"card-body\">\n                <ol class=\"action-list\">\n                    <li><strong>Do Now:</strong> {{ $json.immediate_action_1 }}</li>\n                    <li><strong>Next 2-3 Hours:</strong> {{ $json.immediate_action_2 }}</li>\n                    <li><strong>By Tomorrow:</strong> {{ $json.immediate_action_3 }}</li>\n                </ol>\n            </div>\n        </div>\n        \n        <!-- Wellness Recommendations -->\n        <div class=\"card\">\n            <div class=\"card-header\">Wellness Recommendations</div>\n            <div class=\"card-body\">\n                <div class=\"remedy-box\">\n                    <strong>Hydration:</strong> {{ $json.hydration_reminder }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Breaks:</strong> {{ $json.break_reminder }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Sleep Tip:</strong> {{ $json.sleep_tip }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>Stress Relief:</strong> {{ $json.stress_relief_tip }}\n                </div>\n                <div class=\"remedy-box\">\n                    <strong>General Wellness:</strong> {{ $json.wellness_tip }}\n                </div>\n            </div>\n        </div>\n        \n        <!-- Points & Rewards -->\n        <div class=\"points-card\">\n            <div>POINTS EARNED THIS LOG</div>\n            <div class=\"points-number\">{{ $json.points_awarded }}</div>\n            <div>Total Points: {{ $json.points }} | Consecutive Weeks:{{ $('Append New Student').item.json.submission_count }} </div>\n        </div>\n        \n        <!-- Medical Follow-up -->\n        <div class=\"card\">\n            <div class=\"card-header\">Medical Follow-up</div>\n            <div class=\"card-body\">\n                <div>\n                    Doctor Consultation Needed: \n                    <span class=\"badge \n                        {% if $json.follow_up_needed == 'YES - Consult doctor' %}badge-yes\n                        {% elseif $json.follow_up_needed == 'MONITOR' %}badge-monitor\n                        {% else %}badge-no{% endif %}\">\n                        {{ $json.follow_up_needed }}\n                    </span>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Disclaimer -->\n        <div class=\"disclaimer\">\n            <strong>IMPORTANT MEDICAL DISCLAIMER</strong><br>\n            {{ $json.disclaimer }}<br><br>\n            <strong>Confidence Score Guide:</strong><br>\n            - 80% and above (High): Your symptoms strongly match this condition<br>\n            - 60% to 79% (Medium): Your symptoms moderately match this condition<br>\n            - Below 60% (Low): Other factors may be contributing<br><br>\n            This report is for wellness awareness only. It does not replace professional medical advice, diagnosis, or treatment.\n        </div>\n    </div>\n    \n    <div class=\"footer\">\n        <p>Continue logging your wellness to accumulate points and track your health journey.</p>\n        <p>Student Wellness Assistant Program</p>\n    </div>\n</div>\n</body>\n</html>\n        \n        ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2496,
+        144
+      ],
+      "id": "0a227016-238d-4bac-94c1-94b379976010",
+      "name": "Send a message1",
+      "webhookId": "885c0053-237d-48e1-983b-d1dd5f13969f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WWCO7JFdpmWXTScF",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 21602283,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=21602283"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -48
+      ],
+      "id": "7744564c-bc7b-4ca5-a667-6252cee26761",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "POd60hZ9ag3PZ8l5",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Current form data\nconst current = $('Extract Form Data').first().json;\n\n// Existing student data\nconst existing = $('Searches for student').first().json;\n\n// --- SAFETY ---\nif (!existing || !existing.row_number) {\n  throw new Error(\"No valid existing user found\");\n}\n\n// --- CURRENT VALUES ---\nconst currSleep = Number(current.sleep_hours) || 0;\nconst currStress = Number(current.stress_level) || 0;\nconst currEnergy = Number(current.energy_level) || 0;\n\nconst currSymptomsArr = current.symptoms || [];\nconst currSymptomsStr = current.symptoms_string || \"\";\nconst currSymptomCount = currSymptomsArr.length;\n\n// --- PREVIOUS VALUES ---\nconst prevSleep = Number(existing.latest_sleep) || 0;\nconst prevStress = Number(existing.latest_stress) || 0;\nconst prevEnergy = Number(existing.latest_energy) || 0;\n\nconst prevSymptomsStr = existing.latest_symptoms || \"\";\nconst prevSymptomsArr = prevSymptomsStr ? prevSymptomsStr.split(',').map(s => s.trim()) : [];\nconst prevSymptomCount = prevSymptomsArr.length;\n\n// --- TREND CALCULATION ---\nconst sleep_trend =\n  currSleep > prevSleep ? \"Improving\" :\n  currSleep < prevSleep ? \"Declining\" : \"Stable\";\n\nconst stress_trend =\n  currStress < prevStress ? \"Improving\" :\n  currStress > prevStress ? \"Declining\" : \"Stable\";\n\nconst energy_trend =\n  currEnergy > prevEnergy ? \"Improving\" :\n  currEnergy < prevEnergy ? \"Declining\" : \"Stable\";\n\n// --- SYMPTOM TREND ---\nconst symptom_trend =\n  currSymptomCount < prevSymptomCount ? \"Improving\" :\n  currSymptomCount > prevSymptomCount ? \"Worsening\" : \"Stable\";\n\n// --- POINT SYSTEM ---\nlet points = 10;\n\n// Improvements\nif (currSleep > prevSleep) points += 15;\nif (currStress < prevStress) points += 15;\nif (currEnergy > prevEnergy) points += 15;\nif (currSymptomCount < prevSymptomCount) points += 20; // NEW (important)\n\n// Healthy habits\nif (currSleep >= 7) points += 10;\nif (currStress <= 3) points += 10;\nif (currEnergy >= 4) points += 10;\n\n// Penalty for worsening symptoms\nif (currSymptomCount > prevSymptomCount) points -= 5;\n\n// --- STREAK ---\nconst lastDate = new Date(existing.last_submission);\nconst currentDate = new Date(current.submission_date);\n\nconst diffDays = (currentDate - lastDate) / (1000 * 60 * 60 * 24);\n\nlet streak = existing.streak || 1;\n\nif (diffDays <= 1) {\n  streak += 1;\n} else {\n  streak = 1;\n}\n\n// Streak bonus\nif (streak >= 4) points += 25;\nelse if (streak >= 2) points += 10;\n\n// --- TOTAL POINTS ---\nconst total_points = (existing.total_points || 0) + points;\n\n// --- OUTPUT ---\nreturn [{\n  json: {\n    ...current,\n\n    row_number: existing.row_number,\n\n    // updated stats\n    submission_count: (existing.submission_count || 0) + 1,\n    total_points,\n    points_earned_this_log: points,\n    streak,\n\n    // latest values\n    latest_sleep: currSleep,\n    latest_stress: currStress,\n    latest_energy: currEnergy,\n    latest_symptoms: currSymptomsStr,  // NEW\n\n    // previous values\n    previous_sleep: prevSleep,\n    previous_stress: prevStress,\n    previous_energy: prevEnergy,\n    previous_symptom_count: prevSymptomCount,\n\n    // trends\n    sleep_trend,\n    stress_trend,\n    energy_trend,\n    symptom_trend,\n\n    // counts\n    current_symptom_count: currSymptomCount,\n\n    is_returning: true,\n    last_submission: current.submission_date\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        -208
+      ],
+      "id": "40e4cd1b-61d6-4b6e-937a-baa93ebf3b65",
+      "name": "Points calculation"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1240924301,
+          "mode": "list",
+          "cachedResultName": "Student_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=1240924301"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 0,
+            "student_email": "={{ $json.student_email }}",
+            "last_submission": "={{ $json.submission_date }}",
+            "submission_count": "={{ $json.submission_count }}",
+            "latest_sleep": "={{ $json.latest_sleep }}",
+            "latest_stress": "={{ $json.latest_stress }}",
+            "latest_energy": "={{ $json.latest_energy }}",
+            "total_points": "={{ $json.total_points }}",
+            "streak": "={{ $json.streak }}",
+            "latest_symptoms": "={{ $json.latest_symptoms }}",
+            "student_name": "={{ $json.student_name }}"
+          },
+          "matchingColumns": [
+            "student_email"
+          ],
+          "schema": [
+            {
+              "id": "student_email",
+              "displayName": "student_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "student_name",
+              "displayName": "student_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "first_submission",
+              "displayName": "first_submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_submission",
+              "displayName": "last_submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "submission_count",
+              "displayName": "submission_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_sleep",
+              "displayName": "latest_sleep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_stress",
+              "displayName": "latest_stress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_energy",
+              "displayName": "latest_energy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latest_symptoms",
+              "displayName": "latest_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "total_points",
+              "displayName": "total_points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "streak",
+              "displayName": "streak",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1120,
+        -208
+      ],
+      "id": "999b9447-0af5-4f41-8493-7b4a8c2f97f0",
+      "name": "Update in Student_master",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vhXMoilPoocwLJVX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  // Step 1: parse the string\n  const data = JSON.parse(item.json.text);\n\n  // Step 2 (optional): normalize probability to %\n  if (data.probability_1 <= 1) {\n    data.probability_1 = Math.round(data.probability_1 * 100);\n  }\n\n  if (data.confidence_1 <= 1) {\n    data.confidence_1 = Math.round(data.confidence_1 * 100);\n  }\n\n  // Step 3: return clean JSON\n  return {\n    json: data\n  };\n});\n// // Get the LLM output from the previous node\n// const llmOutput = $input.first().json.text;\n\n// // ============================================\n// // DIRECTLY GET STUDENT DATA FROM NODE 2 (Extract Form Data)\n// // ============================================\n// let studentData = {};\n\n// try {\n//     // Get data from your Extract Form Data node\n//     const extractNode = JSON.parse($input.first().json.text)\n    \n//     studentData = {\n//         student_name: extractNode.student_name || 'Unknown',\n//         student_email: extractNode.student_email || 'unknown',\n//         submission_date: extractNode.submission_date || new Date().toISOString(),\n//         symptoms_string: extractNode.symptoms_string || '',\n//         sleep_hours: extractNode.sleep_hours || 0,\n//         stress_level: extractNode.stress_level || 5,\n//         energy_level: extractNode.energy_level || 3,\n//         submission_count: extractNode.submission_count || 1,\n//         previous_symptoms: extractNode.previous_symptoms || 'None',\n//         previous_sleep: extractNode.previous_sleep || 0,\n//         previous_stress: extractNode.previous_stress || 5,\n//         previous_energy: extractNode.previous_energy || 3,\n//         sleep_trend: extractNode.sleep_trend || 'Stable',\n//         stress_trend: extractNode.stress_trend || 'Stable',\n//         energy_trend: extractNode.energy_trend || 'Stable',\n//         total_points: extractNode.total_points || 0\n//     };\n    \n//     console.log('Student data loaded');\n//     console.log('Submission count from Node 2:', studentData.submission_count);\n//     console.log('Total points from Node 2:', studentData.total_points);\n    \n// } catch(e) {\n//     console.log('Could not get from Extract Form Data node:', e.message);\n    \n//     const inputData = $input.first().json;\n//     studentData = {\n//         student_name: inputData.student_name || 'Unknown',\n//         student_email: inputData.student_email || 'unknown',\n//         submission_date: inputData.submission_date || new Date().toISOString(),\n//         symptoms_string: inputData.symptoms_string || '',\n//         sleep_hours: inputData.sleep_hours || 0,\n//         stress_level: inputData.stress_level || 5,\n//         energy_level: inputData.energy_level || 3,\n//         submission_count: inputData.submission_count || 1,\n//         previous_symptoms: inputData.previous_symptoms || 'None',\n//         previous_sleep: inputData.previous_sleep || 0,\n//         previous_stress: inputData.previous_stress || 5,\n//         previous_energy: inputData.previous_energy || 3,\n//         sleep_trend: inputData.sleep_trend || 'Stable',\n//         stress_trend: inputData.stress_trend || 'Stable',\n//         energy_trend: inputData.energy_trend || 'Stable',\n//         total_points: inputData.total_points || 0\n//     };\n// }\n\n// // ============================================\n// // GET AND CLEAN LLM OUTPUT\n// // ============================================\n// let rawText = '';\n// if (llmOutput.text) {\n//     rawText = llmOutput.text;\n// } else if (llmOutput.output) {\n//     rawText = llmOutput.output;\n// } else if (llmOutput.message) {\n//     rawText = llmOutput.message;\n// } else if (llmOutput.content) {\n//     rawText = llmOutput.content;\n// } else {\n//     rawText = JSON.stringify(llmOutput);\n// }\n\n// // Clean the text: remove markdown code blocks if present\n// let cleanedText = rawText;\n// cleanedText = cleanedText.replace(/```json\\s*/g, '');\n// cleanedText = cleanedText.replace(/```\\s*$/g, '');\n// cleanedText = cleanedText.replace(/```/g, '');\n// cleanedText = cleanedText.replace(/`/g, '');\n\n// // Parse the JSON\n// let jsonData = {};\n// try {\n//     jsonData = JSON.parse(cleanedText);\n//     console.log('Successfully parsed LLM JSON');\n//     console.log('LLM probability_1:', jsonData.probability_1);\n//     console.log('LLM symptoms:', jsonData.symptoms);\n// } catch(e) {\n//     console.log('Failed to parse JSON:', e.message);\n//     console.log('Cleaned text preview:', cleanedText.substring(0, 300));\n//     jsonData = {};\n// }\n\n// // ============================================\n// // CALCULATE SYMPTOM COUNT CORRECTLY\n// // ============================================\n// // Use LLM symptoms if available, otherwise use studentData\n// let symptomsString = jsonData.symptoms || studentData.symptoms_string || '';\n\n// // Split by comma and filter out empty strings\n// let symptomCount = 0;\n// if (symptomsString) {\n//     // Split by comma and count non-empty items\n//     const symptomList = symptomsString.split(',').map(s => s.trim()).filter(s => s.length > 0);\n//     symptomCount = symptomList.length;\n// }\n\n// console.log('Symptoms string:', symptomsString);\n// console.log('Symptom count:', symptomCount);\n\n// // ============================================\n// // CALCULATE POINTS BASED ON LLM OUTPUT\n// // ============================================\n// let pointsEarnedThisLog = 10; // Base points for logging\n\n// console.log('Submission count:', studentData.submission_count);\n// console.log('Probability 1:', jsonData.probability_1);\n\n// // For first-time users (submission_count = 1), points = 10 (no bonuses)\n// if (studentData.submission_count === 1) {\n//     pointsEarnedThisLog = 10;\n//     console.log('First-time user: Base points only (10)');\n// } else {\n//     // Returning user - calculate bonuses\n    \n//     // Bonus 1: +5 if condition probability is mild (≤60%)\n//     if (jsonData.probability_1 && jsonData.probability_1 <= 60) {\n//         pointsEarnedThisLog += 5;\n//         console.log('Bonus applied: Mild condition (probability ≤60%)');\n//     } else {\n//         console.log('No mild condition bonus: probability =', jsonData.probability_1);\n//     }\n    \n//     // Bonus 2: +5 if symptom count is low (≤3)\n//     if (symptomCount <= 3 && symptomCount > 0) {\n//         pointsEarnedThisLog += 5;\n//         console.log('Bonus applied: Few symptoms (≤3) - count:', symptomCount);\n//     } else {\n//         console.log('No few symptoms bonus: count =', symptomCount);\n//     }\n    \n//     // Bonus 3: +5 if improving trends\n//     if (studentData.sleep_trend === 'Improving' || \n//         studentData.stress_trend === 'Improving' || \n//         studentData.energy_trend === 'Improving') {\n//         pointsEarnedThisLog += 5;\n//         console.log('Bonus applied: Improving trend detected');\n//     }\n// }\n\n// // Calculate total points (add to existing)\n// const totalPoints = (studentData.total_points || 0) + pointsEarnedThisLog;\n\n// console.log('========================================');\n// console.log('POINTS CALCULATION RESULT:');\n// console.log('Points earned this log:', pointsEarnedThisLog);\n// console.log('Previous total points:', studentData.total_points);\n// console.log('New total points:', totalPoints);\n// console.log('========================================');\n\n// // ============================================\n// // BUILD FINAL OUTPUT\n// // ============================================\n// // Use LLM data where available, fallback to student data\n// const finalOutput = {\n//     // Student information (from Node 2 - highest priority)\n//     student_name: studentData.student_name,\n//     student_email: studentData.student_email,\n    \n//     // Basic info (prefer LLM, fallback to student data)\n//     timestamp: jsonData.timestamp || new Date().toISOString().slice(0, 19).replace('T', ' '),\n//     submission_number: jsonData.submission_number || studentData.submission_count || 1,\n//     symptoms: jsonData.symptoms || studentData.symptoms_string || '',\n//     sleep: jsonData.sleep || studentData.sleep_hours || 0,\n//     stress: jsonData.stress || studentData.stress_level || 5,\n//     energy: jsonData.energy || studentData.energy_level || 3,\n//     condition: jsonData.condition || 'Unknown',\n    \n//     // Points (calculated by workflow)\n//     points: totalPoints,\n//     points_awarded: pointsEarnedThisLog,\n    \n//     // Symptom tracking\n//     previous_symptoms: jsonData.previous_symptoms || studentData.previous_symptoms || 'None',\n//     new_symptoms: jsonData.new_symptoms || 'None',\n//     resolved_symptoms: jsonData.resolved_symptoms || 'None',\n//     persistent_symptoms: jsonData.persistent_symptoms || 'None',\n//     improvement_status: jsonData.improvement_status || 'NEW_ONSET',\n//     progress_message: jsonData.progress_message || 'First time logging. Baseline established.',\n    \n//     // Conditions and remedies\n//     condition_1: jsonData.condition_1 || jsonData.condition || 'Unknown',\n//     probability_1: jsonData.probability_1 || 0,\n//     confidence_1: jsonData.confidence_1 || 0,\n//     remedy_1: jsonData.remedy_1 || 'Rest and hydrate',\n    \n//     condition_2: jsonData.condition_2 || 'None',\n//     probability_2: jsonData.probability_2 || 0,\n//     confidence_2: jsonData.confidence_2 || 0,\n//     remedy_2: jsonData.remedy_2 || '',\n    \n//     condition_3: jsonData.condition_3 || 'None',\n//     probability_3: jsonData.probability_3 || 0,\n//     confidence_3: jsonData.confidence_3 || 0,\n//     remedy_3: jsonData.remedy_3 || '',\n    \n//     // Action items\n//     immediate_action_1: jsonData.immediate_action_1 || 'Rest and hydrate',\n//     immediate_action_2: jsonData.immediate_action_2 || 'Take a break',\n//     immediate_action_3: jsonData.immediate_action_3 || 'Get good sleep',\n    \n//     // Wellness tips\n//     hydration_reminder: jsonData.hydration_reminder || 'Drink 6-8 glasses of water daily',\n//     break_reminder: jsonData.break_reminder || 'Take regular breaks',\n//     sleep_tip: jsonData.sleep_tip || 'Aim for 7-8 hours of sleep',\n//     stress_relief_tip: jsonData.stress_relief_tip || 'Practice deep breathing',\n//     wellness_tip: jsonData.wellness_tip || 'Listen to your body',\n    \n//     // Follow-up and metadata\n//     follow_up_needed: jsonData.follow_up_needed || 'NO',\n//     top_confidence_level: jsonData.top_confidence_level || 'Medium',\n//     disclaimer: jsonData.disclaimer || 'Not a medical diagnosis. Consult a doctor for persistent symptoms.',\n//     ai_analysis_raw: jsonData.ai_analysis_raw || 'Analysis completed'\n// };\n\n// // Log final output for verification\n// console.log('========================================');\n// console.log('FINAL OUTPUT FOR WELLNESS SHEET');\n// console.log('========================================');\n// console.log('Student:', finalOutput.student_name);\n// console.log('Email:', finalOutput.student_email);\n// console.log('Submission Number:', finalOutput.submission_number);\n// console.log('Symptom count used for points:', symptomCount);\n// console.log('Probability 1:', finalOutput.probability_1);\n// console.log('Points Awarded:', finalOutput.points_awarded);\n// console.log('Total Points:', finalOutput.points);\n// console.log('========================================');\n\n// return [{ json: finalOutput }];\n\n\n// // Get the LLM output from the previous node\n// const llmOutput = $input.first().json;\n\n// // ============================================\n// // DIRECTLY GET STUDENT DATA FROM NODE 2 (Extract Form Data)\n// // ============================================\n// let studentData = {};\n\n// try {\n//     // Get data from your Extract Form Data node\n//     const extractNode = $('Extract Form Data').first().json;\n    \n//     studentData = {\n//         student_name: extractNode.student_name || 'Unknown',\n//         student_email: extractNode.student_email || 'unknown',\n//         submission_date: extractNode.submission_date || new Date().toISOString(),\n//         symptoms_string: extractNode.symptoms_string || '',\n//         sleep_hours: extractNode.sleep_hours || 0,\n//         stress_level: extractNode.stress_level || 5,\n//         energy_level: extractNode.energy_level || 3,\n//         submission_count: extractNode.submission_count || 1,\n//         previous_symptoms: extractNode.previous_symptoms || 'None',\n//         // FIX 1: Get points from student data\n//         total_points: extractNode.total_points || 10,\n//         points_earned_this_log: extractNode.points_earned_this_log || 10\n//     };\n    \n//     console.log('Student data - Total points:', studentData.total_points);\n//     console.log('Student data - Points earned this log:', studentData.points_earned_this_log);\n    \n// } catch(e) {\n//     console.log('Could not get from Extract Form Data node:', e.message);\n    \n//     const inputData = $input.first().json;\n//     studentData = {\n//         student_name: inputData.student_name || 'Unknown',\n//         student_email: inputData.student_email || 'unknown',\n//         submission_date: inputData.submission_date || new Date().toISOString(),\n//         symptoms_string: inputData.symptoms_string || '',\n//         sleep_hours: inputData.sleep_hours || 0,\n//         stress_level: inputData.stress_level || 5,\n//         energy_level: inputData.energy_level || 3,\n//         submission_count: inputData.submission_count || 1,\n//         previous_symptoms: inputData.previous_symptoms || 'None',\n//         total_points: inputData.total_points || 10,\n//         points_earned_this_log: inputData.points_earned_this_log || 10\n//     };\n// }\n\n// // Get the text from LLM response\n// let rawText = '';\n// if (llmOutput.text) {\n//     rawText = llmOutput.text;\n// } else if (llmOutput.output) {\n//     rawText = llmOutput.output;\n// } else if (llmOutput.message) {\n//     rawText = llmOutput.message;\n// } else {\n//     rawText = JSON.stringify(llmOutput);\n// }\n\n// // Clean the text: remove markdown code blocks\n// let cleanedText = rawText;\n// cleanedText = cleanedText.replace(/```json\\s*/g, '');\n// cleanedText = cleanedText.replace(/```\\s*$/g, '');\n// cleanedText = cleanedText.replace(/`/g, '');\n\n// // Parse the JSON\n// let jsonData = {};\n// try {\n//     jsonData = JSON.parse(cleanedText);\n//     console.log('Successfully parsed JSON');\n//     console.log('LLM output - points:', jsonData.points);\n// } catch(e) {\n//     console.log('Failed to parse JSON:', e.message);\n//     jsonData = {};\n// }\n\n// // ============================================\n// // FIX 2: USE STUDENT DATA FOR POINTS, NOT LLM\n// // ============================================\n// const finalOutput = {\n//     // Student information\n//     student_name: studentData.student_name,\n//     student_email: studentData.student_email,\n    \n//     // Basic info\n//     timestamp: jsonData.timestamp || studentData.submission_date || new Date().toISOString().slice(0, 19).replace('T', ' '),\n//     submission_number: jsonData.submission_number || studentData.submission_count || 1,\n//     symptoms: jsonData.symptoms || studentData.symptoms_string || '',\n//     sleep: jsonData.sleep || studentData.sleep_hours || 0,\n//     stress: jsonData.stress || studentData.stress_level || 5,\n//     energy: jsonData.energy || studentData.energy_level || 3,\n//     condition: jsonData.condition || 'Unknown',\n    \n//     // FIX 2: Points from student data (NOT from LLM)\n//     points: studentData.total_points,\n//     points_awarded: studentData.points_earned_this_log,\n    \n//     // Symptom tracking\n//     previous_symptoms: jsonData.previous_symptoms || studentData.previous_symptoms || 'None',\n//     new_symptoms: jsonData.new_symptoms || 'None',\n//     resolved_symptoms: jsonData.resolved_symptoms || 'None',\n//     persistent_symptoms: jsonData.persistent_symptoms || 'None',\n//     improvement_status: jsonData.improvement_status || 'NEW_ONSET',\n//     progress_message: jsonData.progress_message || 'First time logging',\n    \n//     // Conditions and remedies\n//     condition_1: jsonData.condition_1 || jsonData.condition || 'Unknown',\n//     probability_1: jsonData.probability_1 || 0,\n//     confidence_1: jsonData.confidence_1 || 0,\n//     remedy_1: jsonData.remedy_1 || 'Rest and hydrate',\n    \n//     condition_2: jsonData.condition_2 || 'None',\n//     probability_2: jsonData.probability_2 || 0,\n//     confidence_2: jsonData.confidence_2 || 0,\n//     remedy_2: jsonData.remedy_2 || '',\n    \n//     condition_3: jsonData.condition_3 || 'None',\n//     probability_3: jsonData.probability_3 || 0,\n//     confidence_3: jsonData.confidence_3 || 0,\n//     remedy_3: jsonData.remedy_3 || '',\n    \n//     // Action items\n//     immediate_action_1: jsonData.immediate_action_1 || 'Rest and hydrate',\n//     immediate_action_2: jsonData.immediate_action_2 || 'Take a break',\n//     immediate_action_3: jsonData.immediate_action_3 || 'Get good sleep',\n    \n//     // Wellness tips\n//     hydration_reminder: jsonData.hydration_reminder || 'Drink 6-8 glasses of water daily',\n//     break_reminder: jsonData.break_reminder || 'Take regular breaks',\n//     sleep_tip: jsonData.sleep_tip || 'Aim for 7-8 hours of sleep',\n//     stress_relief_tip: jsonData.stress_relief_tip || 'Practice deep breathing',\n//     wellness_tip: jsonData.wellness_tip || 'Listen to your body',\n    \n//     // Points and follow-up\n//     follow_up_needed: jsonData.follow_up_needed || 'NO',\n//     top_confidence_level: jsonData.top_confidence_level || 'Medium',\n//     disclaimer: jsonData.disclaimer || 'Not a medical diagnosis. Consult a doctor for persistent symptoms.',\n//     ai_analysis_raw: jsonData.ai_analysis_raw || 'Analysis completed'\n// };\n\n// console.log('===== FINAL OUTPUT =====');\n// console.log('Total Points:', finalOutput.points);\n// console.log('Points Awarded This Log:', finalOutput.points_awarded);\n\n// return [{ json: finalOutput }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1856,
+        -80
+      ],
+      "id": "298eacba-bf73-484d-81af-8270c466c6d4",
+      "name": "AI output"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1607358945,
+          "mode": "list",
+          "cachedResultName": "Wellness_History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=1607358945"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $('Google Sheets Trigger').item.json.Timestamp }}",
+            "student_email": "={{ $('Points calculation').item.json.student_email }}",
+            "submission_number": "={{ $('Points calculation').item.json.submission_count }}",
+            "symptoms": "={{ $('Extract Form Data').item.json.symptoms_string }}",
+            "stress": "={{ $('Extract Form Data').item.json.stress_level }}",
+            "sleep": "={{ $('Extract Form Data').item.json.sleep_hours }}",
+            "energy": "={{ $('Extract Form Data').item.json.energy_level }}",
+            "condition": "={{ $json.condition_1 }}",
+            "points": "={{ $('Points calculation').item.json.total_points }}",
+            "previous_symptoms": "={{ $json.previous_symptoms }}",
+            "new_symptoms": "={{ $json.new_symptoms }}",
+            "resolved_symptoms": "={{ $json.resolved_symptoms }}",
+            "persistent_symptoms": "={{ $json.persistent_symptoms }}",
+            "improvement_status": "={{ $json.improvement_status }}",
+            "progress_message": "={{ $json.progress_message }}",
+            "probability_1": "={{ $json.probability_1 }}",
+            "confidence_1": "={{ $json.confidence_1 }}",
+            "remedy_1": "={{ $json.remedy_1 }}",
+            "follow_up_needed": "={{ $json.follow_up_needed }}",
+            "condition_1": "={{ $json.condition_1 }}",
+            "condition_2": "=",
+            "probability_2": "=",
+            "confidence_2": "=",
+            "remedy_2": "=",
+            "condition_3": "=",
+            "probability_3": "=",
+            "confidence_3": "=",
+            "remedy_3": "=",
+            "immediate_action_1": "={{ $json.immediate_action_1 }}",
+            "immediate_action_2": "={{ $json.immediate_action_2 }}",
+            "immediate_action_3": "={{ $json.immediate_action_3 }}",
+            "hydration_reminder": "={{ $json.hydration_reminder }}",
+            "break_reminder": "={{ $json.break_reminder }}",
+            "sleep_tip": "={{ $json.sleep_tip }}",
+            "stress_relief_tip": "={{ $json.stress_relief_tip }}",
+            "wellness_tip": "={{ $json.wellness_tip }}",
+            "points_awarded": "={{ $('Points calculation').item.json.points_earned_this_log }}",
+            "top_confidence_level": "=",
+            "disclaimer": "={{ $json.disclaimer }}",
+            "ai_analysis_raw": "="
+          },
+          "matchingColumns": [
+            "student_email"
+          ],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "student_email",
+              "displayName": "student_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submission_number",
+              "displayName": "submission_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "symptoms",
+              "displayName": "symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sleep",
+              "displayName": "sleep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stress",
+              "displayName": "stress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "energy",
+              "displayName": "energy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "condition",
+              "displayName": "condition",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "points",
+              "displayName": "points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "previous_symptoms",
+              "displayName": "previous_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "new_symptoms",
+              "displayName": "new_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "resolved_symptoms",
+              "displayName": "resolved_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "persistent_symptoms",
+              "displayName": "persistent_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "improvement_status",
+              "displayName": "improvement_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "progress_message",
+              "displayName": "progress_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "condition_1",
+              "displayName": "condition_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "probability_1",
+              "displayName": "probability_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "confidence_1",
+              "displayName": "confidence_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "remedy_1",
+              "displayName": "remedy_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "condition_2",
+              "displayName": "condition_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "probability_2",
+              "displayName": "probability_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "confidence_2",
+              "displayName": "confidence_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "remedy_2",
+              "displayName": "remedy_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "condition_3",
+              "displayName": "condition_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "probability_3",
+              "displayName": "probability_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "confidence_3",
+              "displayName": "confidence_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "remedy_3",
+              "displayName": "remedy_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "immediate_action_1",
+              "displayName": "immediate_action_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "immediate_action_2",
+              "displayName": "immediate_action_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "immediate_action_3",
+              "displayName": "immediate_action_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hydration_reminder",
+              "displayName": "hydration_reminder",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "break_reminder",
+              "displayName": "break_reminder",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sleep_tip",
+              "displayName": "sleep_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "stress_relief_tip",
+              "displayName": "stress_relief_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "wellness_tip",
+              "displayName": "wellness_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "points_awarded",
+              "displayName": "points_awarded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "follow_up_needed",
+              "displayName": "follow_up_needed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "top_confidence_level",
+              "displayName": "top_confidence_level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "disclaimer",
+              "displayName": "disclaimer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ai_analysis_raw",
+              "displayName": "ai_analysis_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2176,
+        -80
+      ],
+      "id": "16f1665b-67cd-48b3-864f-7c888f577362",
+      "name": "Append in Wellness History",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vhXMoilPoocwLJVX",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE",
+          "mode": "list",
+          "cachedResultName": "student Wellness & Symptom Tracker  (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1607358945,
+          "mode": "list",
+          "cachedResultName": "Wellness_History",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit#gid=1607358945"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "condition": "={{ $json.condition_1 }}",
+            "sleep_tip": "={{ $json.sleep_tip }}",
+            "hydration_reminder": "={{ $json.hydration_reminder }}",
+            "break_reminder": "={{ $json.break_reminder }}",
+            "stress_relief_tip": "={{ $json.stress_relief_tip }}",
+            "wellness_tip": "={{ $json.wellness_tip }}",
+            "follow_up_needed": "={{ $json.follow_up_needed }}",
+            "disclaimer": "={{ $json.disclaimer }}",
+            "immediate_action_3": "={{ $json.immediate_action_3 }}",
+            "immediate_action_2": "={{ $json.immediate_action_2 }}",
+            "immediate_action_1": "={{ $json.immediate_action_1 }}",
+            "remedy_1": "={{ $json.remedy_1 }}",
+            "confidence_1": "={{ $json.confidence_1 }}",
+            "probability_1": "={{ $json.probability_1 }}",
+            "condition_1": "={{ $json.condition_1 }}",
+            "new_symptoms": "={{ $json.symptoms }}",
+            "points_awarded": "10",
+            "points": "0",
+            "timestamp": "={{ $('Google Sheets Trigger').item.json.Timestamp }}",
+            "student_email": "={{ $('Google Sheets Trigger').item.json['Student Email Address'] }}",
+            "symptoms": "={{ $('Google Sheets Trigger').item.json['What symptoms are you experiencing today? (Select all that apply)'] }}",
+            "sleep": "={{ $('Google Sheets Trigger').item.json['How many hours of sleep did you get last night?'] }}",
+            "stress": "={{ $('Google Sheets Trigger').item.json['On a scale of 1 to 10, what is your current stress level?'] }}",
+            "energy": "={{ $('Google Sheets Trigger').item.json['Energy Level'] }}",
+            "submission_number": "1"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "student_email",
+              "displayName": "student_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "submission_number",
+              "displayName": "submission_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "symptoms",
+              "displayName": "symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sleep",
+              "displayName": "sleep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stress",
+              "displayName": "stress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "energy",
+              "displayName": "energy",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "condition",
+              "displayName": "condition",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "points",
+              "displayName": "points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "previous_symptoms",
+              "displayName": "previous_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "new_symptoms",
+              "displayName": "new_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "resolved_symptoms",
+              "displayName": "resolved_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "persistent_symptoms",
+              "displayName": "persistent_symptoms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "improvement_status",
+              "displayName": "improvement_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "progress_message",
+              "displayName": "progress_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "condition_1",
+              "displayName": "condition_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "probability_1",
+              "displayName": "probability_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence_1",
+              "displayName": "confidence_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "remedy_1",
+              "displayName": "remedy_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "condition_2",
+              "displayName": "condition_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "probability_2",
+              "displayName": "probability_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence_2",
+              "displayName": "confidence_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "remedy_2",
+              "displayName": "remedy_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "condition_3",
+              "displayName": "condition_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "probability_3",
+              "displayName": "probability_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence_3",
+              "displayName": "confidence_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "remedy_3",
+              "displayName": "remedy_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "immediate_action_1",
+              "displayName": "immediate_action_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "immediate_action_2",
+              "displayName": "immediate_action_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "immediate_action_3",
+              "displayName": "immediate_action_3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hydration_reminder",
+              "displayName": "hydration_reminder",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "break_reminder",
+              "displayName": "break_reminder",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sleep_tip",
+              "displayName": "sleep_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stress_relief_tip",
+              "displayName": "stress_relief_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "wellness_tip",
+              "displayName": "wellness_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "points_awarded",
+              "displayName": "points_awarded",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "follow_up_needed",
+              "displayName": "follow_up_needed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "top_confidence_level",
+              "displayName": "top_confidence_level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "disclaimer",
+              "displayName": "disclaimer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_analysis_raw",
+              "displayName": "ai_analysis_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2192,
+        144
+      ],
+      "id": "d91be00e-0d81-4841-8208-d539d3455831",
+      "name": "Append data in Wellness History",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vhXMoilPoocwLJVX",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Extract Form Data": {
+      "main": [
+        [
+          {
+            "node": "Searches for student",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Points calculation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append New Student",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append New Student": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "AI output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Searches for student": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Append data in Wellness History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Form Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Points calculation": {
+      "main": [
+        [
+          {
+            "node": "Update in Student_master",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update in Student_master": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI output": {
+      "main": [
+        [
+          {
+            "node": "Append in Wellness History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append in Wellness History": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append data in Wellness History": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d6cdfbd6741a6fe296c5275974097d99e87296b9de027e1065940af35b8da68e"
+  }
+}
