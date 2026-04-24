@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Student Wellness Dashboard</title>
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- LOGIN SCREEN (shown first)                    -->
+<!-- ============================================ -->
+<div id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <div class="login-icon">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <h1>Student Wellness Portal</h1>
+        <p>View your personal health insights and wellness journey</p>
+        <input type="email" id="emailInput" class="login-input" placeholder="Enter your university email" autocomplete="email">
+        <button class="login-btn" onclick="login()">
+            <i class="fas fa-arrow-right"></i> View My Dashboard
+        </button>
+        <div class="remember-row">
+            <label class="checkbox-label">
+                <input type="checkbox" id="rememberCheckbox"> Remember me
+            </label>
+            <a href="#" class="help-link">Need help?</a>
+        </div>
+        <div class="login-note">
+            <i class="fas fa-shield-alt"></i> Your data is private and secure
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- DASHBOARD CONTAINER (hidden until login)      -->
+<!-- ============================================ -->
+<div id="dashboardContainer" class="dashboard-container">
+    
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <div class="header-left">
+            <h1 id="studentName">Student Dashboard</h1>
+            <p id="lastUpdateText"><i class="far fa-calendar-alt"></i> Loading your data...</p>
+        </div>
+        <div class="header-right">
+            <div class="points-badge">
+                <i class="fas fa-star"></i>
+                <span id="totalPoints">0</span> total points
+            </div>
+            <div class="streak-badge">
+                <i class="fas fa-fire"></i>
+                <span id="streakCount">0</span> week streak
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner" id="welcomeBanner">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h2 id="welcomeMessage">Welcome back!</h2>
+                <p id="progressMessage">Track your wellness journey below</p>
+            </div>
+            <div class="wellness-score">
+                <div class="score-circle" id="scoreCircle">
+                    <span id="wellnessScore">0</span>
+                    <small>Wellness Score</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid - 6 Key Metrics -->
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <!-- Main Charts Row -->
+    <div class="charts-row">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-line"></i> Wellness Trends</h3>
+                <i class="fas fa-info-circle tooltip-icon" title="Shows your points trend over time"></i>
+            </div>
+            <canvas id="trendsChart" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-pie"></i> Health Conditions</h3>
+                <i class="fas fa-info-circle tooltip-icon" title="Distribution of AI-diagnosed conditions"></i>
+            </div>
+            <canvas id="conditionChart" height="200"></canvas>
+        </div>
+    </div>
+
+    <!-- AI Analysis Card -->
+    <div class="analysis-card" id="analysisCard">
+        <div class="analysis-header">
+            <h3><i class="fas fa-brain"></i> AI Health Assessment</h3>
+            <span class="analysis-badge" id="analysisDate">Latest analysis</span>
+        </div>
+        <div id="analysisContent">Loading analysis...</div>
+    </div>
+
+    <!-- Sleep, Stress, Energy Chart -->
+    <div class="full-width-card">
+        <div class="chart-header">
+            <h3><i class="fas fa-chart-line"></i> Sleep, Stress & Energy Trends</h3>
+            <div class="legend">
+                <span class="legend-dot sleep-dot"></span> Sleep (hrs)
+                <span class="legend-dot stress-dot"></span> Stress (/10)
+                <span class="legend-dot energy-dot"></span> Energy (/5)
+            </div>
+        </div>
+        <canvas id="metricsChart" height="250"></canvas>
+    </div>
+
+    <!-- Points History Chart -->
+    <div class="full-width-card">
+        <div class="chart-header">
+            <h3><i class="fas fa-chart-bar"></i> Points History</h3>
+            <i class="fas fa-info-circle tooltip-icon" title="Points earned per wellness log"></i>
+        </div>
+        <canvas id="pointsChart" height="200"></canvas>
+    </div>
+
+    <!-- Symptom History Table -->
+    <div class="table-card">
+        <div class="table-header">
+            <h3><i class="fas fa-history"></i> Symptom History</h3>
+            <span class="table-badge" id="totalLogsBadge">0 logs</span>
+        </div>
+        <div class="table-wrapper">
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Symptoms</th>
+                        <th>Sleep</th>
+                        <th>Stress</th>
+                        <th>Energy</th>
+                        <th>AI Condition</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <tr><td colspan="7" class="loading-cell">Loading your wellness history...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Wellness Recommendations Card -->
+    <div class="tips-card" id="tipsCard">
+        <h3><i class="fas fa-lightbulb"></i> Personalized Wellness Recommendations</h3>
+        <div class="tips-grid" id="tipsGrid"></div>
+    </div>
+
+    <!-- Medical Follow-up Card (hidden by default) -->
+    <div class="followup-card" id="followupCard" style="display: none;">
+        <h3><i class="fas fa-stethoscope"></i> Medical Attention Recommended</h3>
+        <div id="followupContent"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dashboard-footer">
+        <div class="footer-content">
+            <p><i class="fas fa-exclamation-triangle"></i> <strong>Medical Disclaimer:</strong> This is not a medical diagnosis. This AI tool provides wellness suggestions based on self-reported symptoms and should not replace professional medical advice.</p>
+            <p class="footer-note">Student Wellness Assistant Program | Data syncs from your wellness logs</p>
+        </div>
+    </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
