@@ -1,5 +1,7 @@
 # Student Wellness Assistant - Complete Project Documentation
-Google Form Link - https://docs.google.com/forms/d/10tT58FIfxnC2tQKKfWjUekSM6NI73ka4qzWtoWmAuLs/edit
+Google Form Link -> https://forms.gle/uBZ25kJW4mN9aMrJ6
+
+Sheets (Database) -> https://docs.google.com/spreadsheets/d/1EcnHQ5fZMXp2SVCcaT1LirzXVoyl2daBsltbhU7tRfE/edit?usp=sharing
 
 ## Project Overview
 
